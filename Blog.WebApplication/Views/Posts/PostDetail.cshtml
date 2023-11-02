@@ -1,0 +1,144 @@
+﻿@using Blog.WebApplication.Models.Posts
+@model PostDetailDto
+@inject Blog.WebApplication.Models.ServerBaseUrlViewModel serverBaseUrl
+
+@section links{
+<link rel="stylesheet" href="/css/post.style.css">
+}
+<main>
+    <a href="/" id="back-btn">بازگشت به صحفه اصلی</a>
+    <div class="main-container">
+        <div class="image-box">
+            <img src="@serverBaseUrl.Value/@Model.ImageUrl" alt="">
+        </div>
+        <h1>@Model.Title</h1>
+
+
+
+        <!-- User Info Section Start -->
+        <section class="user-info">
+            <img src="/images/user.jpeg" alt="">
+            <div class="profile">
+                <span>@Model.UserName</span>
+                <span class="create-date">تاریخ انتشار : @Model.CreationDate</span>
+            </div>
+        </section>
+        <!-- User Info Section End -->
+
+
+        <!-- Post Body Section Start -->
+        <section class="post-body">
+            <p class="post-content">@Model.Body</p>
+        </section>
+        <!-- Post Body Section End -->
+        
+        <!-- Post Comments Section Start -->
+        <section class="comments">
+
+            <section class="add-comment-modal">
+                <form method="post" class="add-comment-modal-container">
+                    <input type="hidden" id="postid-hidden-input" value="@Model.Id">
+                    <label for="">نظر خود را بنویسید </label>
+                    <textarea class="add-comment-input" placeholder="ثبت کامنت جدید" id=""></textarea>
+                    <button class="add-comment-btn">ثبت نظر</button>
+                </form>
+            </section>
+
+            <div class="comments-container">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="comment-item">
+                        <div class="comment-item-top">
+                            <div>
+                                <img src="/images/user.jpeg" alt="">
+                                <span class="comment-user-name">@comment.UserName</span>
+                            </div>
+                            <div>پاسخ به این نظر</div>
+                            <div>@comment.CreateDate</div>
+                        </div>
+                        <div class="comment-item-top-bottom">
+                            <span>@comment.Text</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+        <!-- Post Comments Section End -->
+    </div>
+</main>
+@section scripts{
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+     (() => {
+        document.querySelector('.add-comment-btn').addEventListener('click', async (event) => {
+            event.preventDefault();
+            let commentTxt = document.querySelector('.add-comment-input').value;
+            if (commentTxt == "") {
+                showToast('error','متن کامنت خود را تایپ کنید');
+            } else {
+                console.log(Number(document.querySelector('#postid-hidden-input').value))
+
+                let body = {
+                    UserName: "بدون نام کاربری",
+                    PostId: Number(document.querySelector('#postid-hidden-input').value),
+                    Text: commentTxt
+                }
+                console.log(body)
+                let baseUrl="@serverBaseUrl.Value"
+                console.log(baseUrl);
+                try{
+                      var req = await fetch(baseUrl+'/api/Comments', {
+                    body: JSON.stringify(body),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST"
+                });
+                if (req.status == 201) {
+                    document.querySelector('.add-comment-input').value = '';
+                    showToast('success','کامنت شما با موفقیت ثبت شد');
+                    let newComment=`<div class="comment-item">
+                    <div class="comment-item-top">
+                        <div>
+                            <img src="/images/user.jpeg" alt="">
+                            <span class="comment-user-name">${body.UserName}</span>
+                        </div>
+                        <div>پاسخ به این نظر</div>
+                        <div>شنبه 6 آبان 1402</div>
+                    </div>
+                        <div class="comment-item-top-bottom">
+                            <span>${body.Text}</span>
+                        </div>
+                    </div>`
+
+                    document.querySelector('.comments-container').innerHTML=newComment+=document.querySelector('.comments-container').innerHTML;
+                   }
+                }
+                catch{
+                   showToast('warning','خطای ارتباط با سرور');
+                }
+
+            }
+        })
+    })();
+
+    function showToast(icon,msg) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: icon,
+            title: msg
+        })
+    }
+</script>
+}

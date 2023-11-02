@@ -1,0 +1,65 @@
+﻿@using Blog.WebApplication.Models.Posts
+@model PostPagingViewModel
+@inject Blog.WebApplication.Models.ServerBaseUrlViewModel serverBaseUrl
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section links{
+<link rel="stylesheet" href="/css/index.style.css">
+}
+
+<main>
+    <h1 id="title">لیست پست های ارسالی</h1>
+    <!-- Posts Section Start  -->
+    <section class="post-container">
+        @foreach (var item in Model.Posts)
+        {
+            <div class="post-item">
+                <div class="post-item-right">
+                    <a href="/posts/@item.Slug">
+                        <img src="@serverBaseUrl.Value/@item.ImageUrl" alt="">
+                    </a>
+                </div>
+
+                <div class="post-item-left">
+                    <div class="post-item-left-top">
+                        <a href="/posts/@item.Slug" class="post-title-link">
+                            @item.Title
+                        </a>
+                        <p class="post-body">
+                            @item.Body
+                        </p>
+                    </div>
+                    <div class="post-item-left-bottom">
+                        <span class="write"><i class="bi bi-person"></i>@item.UserName</span>
+                        <span class="visited-count"><i class="bi bi-eye"></i>12,793 </span>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </section>
+    <!-- Posts Section End  -->
+    <!-- pagination Section Start  -->
+    <section class="pagination-container">
+        <div class="pagination">
+            @for (int i = 1; i <= Model.Paging.EndPage; i++)
+            {
+                if (Model.Paging.CurrentPage == i)
+                {
+                    <div class="pagination-item pagination-item-active">
+                        <a href="?pageId=@i">@i</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="pagination-item">
+                        <a href="?pageId=@i">@i</a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+    <!-- pagination Section End  -->
+</main>

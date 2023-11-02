@@ -1,0 +1,231 @@
+@font-face {
+    font-family: nazanin;
+    src: url(/fonts/Nazanin.eot#?)format('eot'),
+        url(/fonts/Nazanin.ttf)format('truetype'),
+        url(/fonts/Nazanin.woff)format('woff');
+}
+
+@font-face {
+    font-family: yekan;
+    src: url(/fonts/Yekan.eot#?)format('eot'),
+        url(/fonts/Yekan.ttf)format('truetype'),
+        url(/fonts/Yekan.woff2)format('woff2');
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    direction: rtl;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: yekan;
+    background-color: #f9f7ff;
+}
+
+#title {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.post-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+@media screen and (max-width:900px) {
+
+    .post-item {
+        width: 650px !important;
+
+    }
+
+    .post-item-right img {
+        width: 260px !important;
+    }
+
+    .post-title-link {
+        font-size: 16px !important;
+        width: 370px !important;
+    }
+
+    .post-item-left {
+        padding: 20px 10px !important;
+        width: 370px;
+    }
+
+    .post-body {
+        font-size: 16px;
+        width: 370px !important;
+    }
+}
+
+@media screen and (max-width:670px) {
+
+    .post-item {
+        width: 500px !important;
+        max-height: 170px !important;
+    }
+
+    .post-item-right img {
+        width: 200px !important;
+        height: 150px !important;
+        margin-top: 10px;
+    }
+
+    .post-title-link {
+        font-size: 15px !important;
+        width: 280px !important;
+    }
+
+    .post-item-left {
+        padding: 20px 10px !important;
+        width: 380px;
+    }
+
+    .post-body {
+        font-size: 15px;
+        width: 280px !important;
+    }
+
+    .post-item-left-bottom {
+        padding-bottom: 10px;
+    }
+}
+
+@media screen and (max-width:550px) {
+
+    .post-item {
+        width: 450px !important;
+        max-height: 170px !important;
+    }
+
+    .post-item-right img {
+        width: 200px !important;
+        height: 150px !important;
+        margin-top: 10px;
+    }
+
+    .post-title-link {
+        font-size: 15px !important;
+        width: 230px !important;
+    }
+
+    .post-item-left {
+        padding: 20px 10px !important;
+        width: 380px;
+    }
+
+    .post-body {
+        font-size: 15px;
+        width: 230px !important;
+    }
+
+    .post-item-left-bottom {
+        padding-bottom: 10px;
+    }
+}
+
+.post-item {
+    width: 860px;
+    margin: 40px auto;
+    background-color: #FFFF !important;
+    display: flex;
+    border-radius: 15px;
+    box-shadow: 2px 3px 2px #eee;
+    transition: all 0.7s;
+
+}
+.post-item:hover {
+    transform:  scale(1.1);
+}
+
+.post-item-right img {
+    width: 370px;
+    border-radius: 15px;
+    height: 180px;
+}
+
+.post-item-left {
+    padding: 30px 20px;
+    text-align: right;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.post-title-link {
+    color: rgb(69, 163, 226);
+    font-size: 19px;
+    white-space: nowrap;
+    width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.post-body {
+    white-space: nowrap;
+    width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+}
+
+.post-item-left-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bi-eye {
+    margin-left: 5px;
+    position: relative;
+    top: 4px;
+}
+
+.bi-person {
+    margin-left: 3px;
+    position: relative;
+    top: 4px;
+}
+
+.pagination-container {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-item {
+    width: 40px;
+    height: 40;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(53, 192, 202);
+}
+
+.pagination-item a {
+    font-size: 25px;
+    color: #FFFF;
+    width:100%;
+    height:100%;
+}
+
+.pagination-item-active {
+    background-color: palevioletred !important;
+}
