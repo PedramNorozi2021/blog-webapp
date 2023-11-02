@@ -27,18 +27,5 @@ namespace Blog.WebApplication.Controllers
             var model = JsonConvert.DeserializeObject<PostDetailDto>(response);
             return View(model);
         }
-
-
-        [HttpPost]
-        [Route("Posts/AddComment")]
-        public async Task<IActionResult> AddComment(AddCommentViewModel model)
-        {
-            using var client = new HttpClient();
-            client.BaseAddress = new Uri(_serverBaseUrlViewModel.Value);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
-            //await client.PostAsync("api/comments");
-            return Ok(new { msg = "عملیات با موفقیت انجام شد" });
-        }
     }
 }
